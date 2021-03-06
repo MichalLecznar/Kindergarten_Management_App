@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Kindergarten 2.0</title>
 
     <!-- Custom fonts for this template-->
     <link href="<c:url value="/theme/vendor/fontawesome-free/css/all.min.css"/>" rel="stylesheet" type="text/css">
@@ -127,27 +127,34 @@
 <%--            </div>--%>
 <%--        </li>--%>
 
-        <!-- Nav Item - Charts -->
+        <!-- Nav Item - Enroll -->
         <li class="nav-item">
             <a class="nav-link" href="/enroll">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Enroll your child</span></a>
         </li>
 
-        <!-- Nav Item - Tables -->
+        <!-- Nav Item - List -->
         <li class="nav-item">
-            <a class="nav-link" href="/listofchilds">
+            <a class="nav-link" href="/list">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Child List</span></a>
+        </li>
+
+        <!-- Nav Item - Dinner -->
+        <li class="nav-item">
+            <a class="nav-link" href="/dinner">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Weekly dinners</span></a>
         </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
         <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle">K2.0</button>
-        </div>
+<%--        <div class="text-center d-none d-md-inline">--%>
+<%--            <button class="rounded-circle border-0" id="sidebarToggle">K2.0</button>--%>
+<%--        </div>--%>
 
     </ul>
     <!-- End of Sidebar -->

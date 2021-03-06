@@ -21,19 +21,26 @@ public class RegisterController {
     }
 
     @GetMapping({"/", "/register"})
-    public String register(Model m){
-        m.addAttribute("user", new User());
-        return "registerform";
+    public String register(Model m, HttpSession session){
+        if(session.getAttribute("name") == null) {
+            m.addAttribute("user", new User());
+            return "registerform";
+        }
+        return "redirect:/main";
     }
 
     @PostMapping({"/", "/register"})
     public String registerPost(@Valid User user, BindingResult violation, HttpSession session){
+        if(session.getAttribute("name") != null){
+            return "redirect:/main";
+        }
         if(violation.hasErrors()){
             return "registerform";
         }
         this.userRepository.save(user);
         // zmienić/usunąć po dopisaniu LoginControllera
         session.setAttribute("name", user.getName());
+        session.setMaxInactiveInterval(3600);
         return "main";
     }
 }
