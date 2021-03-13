@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.coderslab.kindergarten.entity.User;
 import pl.coderslab.kindergarten.entity.UserChild;
@@ -43,10 +45,8 @@ public class EnrollmentController {
         if(violation.hasErrors()){
             return "enrollmentform";
         }
-
-        // zapis dziecka i przypisanie go do rodzica (poprawić)
-        String name = (String) session.getAttribute("name");
-        User user = this.userRepository.readByName(name);
+        int id = (Integer)session.getAttribute("id");
+        User user = this.userRepository.readById(id);
         this.userChildRepository.save(userChild);
         user.setUserChild(userChild);
         this.userRepository.save(user);
@@ -54,9 +54,29 @@ public class EnrollmentController {
     }
 
     @GetMapping("/list")
-    public String displayIncomeList(Model model) {
+    public String displayChildList(Model model) {
         List<UserChild> children = this.userChildRepository.findAll();
         model.addAttribute("children", children);
         return ("childlist");
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteUserChild(@PathVariable int id){
+        this.userChildRepository.deleteById(id);
+        return "redirect:/list";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editUserChild(@PathVariable int id, Model m){
+        UserChild userChild = this.userChildRepository.findById(id);
+        m.addAttribute("userchild", userChild);
+        return "edit";
+    }
+
+    @PostMapping("/edit")
+    public String editUserChildPost(@ModelAttribute UserChild userChild){
+        this.userChildRepository.save(userChild);
+        return "redirect:/list";
+    }
+
 }

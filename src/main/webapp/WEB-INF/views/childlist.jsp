@@ -7,14 +7,14 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Nasi podopieczni</h1>
-                <p class="mb-4">Lista dzieci uczęszczających do naszego przedszkola <a target="_blank"
-                       href="https://datatables.net">Jakieś przekierowanie</a>.</p>
+                <h1 class="h3 mb-2 text-gray-800">Our pupils</h1>
+                <p class="mb-4">List of children attending our kindergarten <a target="_blank"
+                       href="https://datatables.net">Link TODO</a>.</p>
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Lista dzieci</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Children's list</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -24,6 +24,8 @@
                                     <th>Name</th>
                                     <th>Surname</th>
                                     <th>Age</th>
+                                    <th>Action</th>
+                                    <th>Admin Tools</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -31,6 +33,8 @@
                                     <th>Name</th>
                                     <th>Surname</th>
                                     <th>Age</th>
+                                    <th>Action</th>
+                                    <th>Admin Tools</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -39,6 +43,11 @@
                                             <td>${child.firstName}</td>
                                             <td>${child.lastName}</td>
                                             <td>${child.age}</td>
+                                            <td><a href="/child/details/${child.id}">Details</a></td>
+                                            <td>
+                                                <a href="/delete/${child.id}">Delete</a>
+                                                <a href="/edit/${child.id}">Edit</a>
+                                            </td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

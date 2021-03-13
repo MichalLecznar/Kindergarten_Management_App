@@ -13,6 +13,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotBlank(message = "To pole nie może być puste")
+    @Column(unique = true)
     private String name;
     @Email
     @NotBlank(message = "To pole nie może być puste")
@@ -20,7 +21,7 @@ public class User {
     @NotBlank(message = "To pole nie może być puste")
     @Size(min = 4, max = 15, message = "Długość hasła od 4 do 15 znaków" )
     private String password;
-    @ManyToOne()
+    @OneToOne()
     private UserChild userChild;
 
     public User() {

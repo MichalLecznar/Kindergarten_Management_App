@@ -1,9 +1,8 @@
 package pl.coderslab.kindergarten.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -12,12 +11,13 @@ public class UserChild {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank
+    @NotBlank(message = "To pole nie może być puste")
     private String firstName;
-    @NotBlank
+    @NotBlank(message = "To pole nie może być puste")
     private String lastName;
+    @NotNull(message = "To pole nie może być puste")
     private int age;
-    @ManyToOne
+    @OneToOne
     private User user;
     @OneToMany()
     private List<Subject> subjects;
@@ -71,5 +71,10 @@ public class UserChild {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + " , wiek: " + age + " lata";
     }
 }

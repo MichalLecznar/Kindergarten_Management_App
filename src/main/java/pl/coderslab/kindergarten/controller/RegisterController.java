@@ -40,7 +40,9 @@ public class RegisterController {
         this.userRepository.save(user);
         // zmienić/usunąć po dopisaniu LoginControllera
         session.setAttribute("name", user.getName());
+        session.setAttribute("id", user.getId());
         session.setMaxInactiveInterval(3600);
         return "main";
     }
+
 }
