@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.kindergarten.entity.UserChild;
 import pl.coderslab.kindergarten.repository.UserChildRepository;
+import pl.coderslab.kindergarten.repository.UserRepository;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -19,14 +20,17 @@ import java.io.FileOutputStream;
 public class UserChildController {
 
     private UserChildRepository userChildRepository;
+    private UserRepository userRepository;
 
-    public UserChildController(UserChildRepository userChildRepository) {
+    public UserChildController(UserChildRepository userChildRepository, UserRepository userRepository) {
         this.userChildRepository = userChildRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/details/{id}")
     public String childDetails(@PathVariable int id, Model m){
         m.addAttribute("child", this.userChildRepository.findById(id));
+        m.addAttribute("parent", this.userRepository.readByUserChildId(id));
     return "childdetails";
     }
 
@@ -41,13 +45,16 @@ public class UserChildController {
         Chunk name = new Chunk(userChild.getFirstName(),font);
         Chunk surname = new Chunk(userChild.getLastName(),font);
         Chunk age = new Chunk(String.valueOf(userChild.getAge()),font);
-//        Chunk parent = new Chunk(userChild.getUser().getName(),font);
+        Chunk parentName = new Chunk(this.userRepository.readByUserChildId(id).getName());
+        Chunk parentMail = new Chunk(this.userRepository.readByUserChildId(id).getEmail());
+//        Chunk parentId = new Chunk(String.valueOf(this.userRepository.readByUserChildId(id).getId()));
 
-        document.add(new Paragraph(name));
-        document.add(surname);
+        document.add(new Paragraph("Imię: " + name));
+        document.add(new Paragraph("Nazwiko: " + surname));
+        document.add(new Paragraph("Wiek: " + age));
         document.add(Chunk.NEWLINE);
-        document.add(age);
-//        document.add(parent);
+        document.add(new Paragraph("Rodzic: " + parentName));
+        document.add(new Paragraph("Email: " + parentMail));
 
         document.close();
         return "redirect:/child/pdfinfo";
