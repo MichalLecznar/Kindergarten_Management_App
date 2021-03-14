@@ -21,7 +21,7 @@ public class User {
     @NotBlank(message = "To pole nie może być puste")
     @Size(min = 4, max = 15, message = "Długość hasła od 4 do 15 znaków" )
     private String password;
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.ALL)
     private UserChild userChild;
 
     public User() {

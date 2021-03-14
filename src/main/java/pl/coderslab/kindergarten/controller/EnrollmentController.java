@@ -62,19 +62,23 @@ public class EnrollmentController {
 
     @GetMapping("/delete/{id}")
     public String deleteUserChild(@PathVariable int id){
-        this.userChildRepository.deleteById(id);
+//        this.userRepository.delete(this.userChildRepository.findById(id));
+        this.userChildRepository.delete(this.userChildRepository.findById(id));
         return "redirect:/list";
     }
 
     @GetMapping("/edit/{id}")
     public String editUserChild(@PathVariable int id, Model m){
         UserChild userChild = this.userChildRepository.findById(id);
+//        m.addAttribute("parent", this.userRepository.readByUserChildId(id));
         m.addAttribute("userchild", userChild);
         return "edit";
     }
 
-    @PostMapping("/edit")
-    public String editUserChildPost(@ModelAttribute UserChild userChild){
+    @PostMapping("/edit/{id}")
+    public String editUserChildPost(UserChild userChild){
+//        User user = this.userRepository.readByUserChildId(userChild.getId());
+//        userChild.setUser(user);
         this.userChildRepository.save(userChild);
         return "redirect:/list";
     }

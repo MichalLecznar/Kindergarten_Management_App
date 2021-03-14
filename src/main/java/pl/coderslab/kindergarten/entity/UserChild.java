@@ -17,9 +17,9 @@ public class UserChild {
     private String lastName;
     @NotNull(message = "To pole nie może być puste")
     private int age;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userChild")
     private User user;
-    @OneToMany()
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Subject> subjects;
 
     public UserChild() {
@@ -72,6 +72,7 @@ public class UserChild {
     public void setUser(User user) {
         this.user = user;
     }
+
 
     @Override
     public String toString() {
