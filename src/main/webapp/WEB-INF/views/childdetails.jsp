@@ -11,6 +11,7 @@
 <p><b>Rodzic: </b><c:out value="${parent.name}" default="not provided" /></p>
 <p><b>Email: </b><c:out value="${parent.email}" default="not provided" /></p>
 <a class="nav-link" href="/list">Back to list</a>
+<a class="nav-link" href="/child/assigntosubject/${child.id}">Assign to subject</a>
 <a class="nav-link" href="/child/topdf/${child.id}">To ---> PDF</a>
 
 <%@ include file="/footer.jsp" %>

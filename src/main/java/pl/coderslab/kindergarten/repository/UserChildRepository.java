@@ -7,6 +7,7 @@ public interface UserChildRepository extends JpaRepository<UserChild, Integer> {
 
     UserChild findById(int id);
     UserChild readByUserName(String name);
+    UserChild readByUserId(int id);
     void deleteById(int id);
 
 }

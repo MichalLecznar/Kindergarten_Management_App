@@ -1,9 +1,6 @@
 package pl.coderslab.kindergarten.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Subject {
@@ -12,6 +9,8 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    @ManyToOne
+    private UserChild userChild;
 
     public Subject() {
     }
@@ -30,5 +29,13 @@ public class Subject {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public UserChild getUserChild() {
+        return userChild;
+    }
+
+    public void setUserChild(UserChild userChild) {
+        this.userChild = userChild;
     }
 }

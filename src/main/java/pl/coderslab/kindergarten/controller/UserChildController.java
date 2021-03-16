@@ -4,16 +4,18 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import pl.coderslab.kindergarten.entity.Subject;
+import pl.coderslab.kindergarten.entity.User;
 import pl.coderslab.kindergarten.entity.UserChild;
+import pl.coderslab.kindergarten.repository.SubjectRepository;
 import pl.coderslab.kindergarten.repository.UserChildRepository;
 import pl.coderslab.kindergarten.repository.UserRepository;
 
+import javax.servlet.http.HttpSession;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.List;
 
 @Controller
 @RequestMapping("/child")
@@ -21,10 +23,12 @@ public class UserChildController {
 
     private UserChildRepository userChildRepository;
     private UserRepository userRepository;
+    private SubjectRepository subjectRepository;
 
-    public UserChildController(UserChildRepository userChildRepository, UserRepository userRepository) {
+    public UserChildController(UserChildRepository userChildRepository, UserRepository userRepository, SubjectRepository subjectRepository) {
         this.userChildRepository = userChildRepository;
         this.userRepository = userRepository;
+        this.subjectRepository = subjectRepository;
     }
 
     @GetMapping("/details/{id}")
@@ -63,5 +67,33 @@ public class UserChildController {
     @GetMapping("/pdfinfo")
     public String pdfSucces(){
         return "pdfinformation";
+    }
+
+    @GetMapping("/assigntosubject/{id}")
+    public String assigningChildToSubject(@PathVariable int id, Model m){
+//        int id  = (Integer)session.getAttribute("id");
+//        UserChild userChild = this.userChildRepository.readByUserId(id);
+//        User parent = this.userRepository.readByUserChildId(id);
+//        List<Subject> subjects = this.subjectRepository.findAll();
+        m.addAttribute("child", this.userChildRepository.findById(id));
+        m.addAttribute("subjects", this.subjectRepository.findAll());
+//        m.addAttribute("parent", parent);
+        return "childassigntosubject";
+    }
+
+    @PostMapping("/assigntosubject/{id}")
+    public String assigningChildToSubjectPost(@PathVariable int id, @RequestParam(value = "subId") String subId){
+        int subId1 = Integer.parseInt(subId);
+        Subject subject = this.subjectRepository.findById(subId1);
+        UserChild userChild = this.userChildRepository.findById(id);
+        subject.setUserChild(userChild);
+        this.subjectRepository.save(subject);
+//        this.userChildRepository.save(userChild);
+        return "redirect:/list";
+    }
+
+    @ModelAttribute("subjects")
+    public List<Subject> subjects(){
+        return this.subjectRepository.findAll();
     }
 }

@@ -143,9 +143,9 @@
 
         <!-- Nav Item - Dinner -->
         <li class="nav-item">
-            <a class="nav-link" href="/dinner">
+            <a class="nav-link" href="/subjectlist">
                 <i class="fas fa-fw fa-table"></i>
-                <span>Weekly dinners</span></a>
+                <span>Subjects</span></a>
         </li>
 
         <!-- Divider -->
