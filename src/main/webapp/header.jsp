@@ -141,13 +141,19 @@
                 <span>Child List</span></a>
         </li>
 
-        <!-- Nav Item - Dinner -->
+        <!-- Nav Item - Subjects -->
         <li class="nav-item">
             <a class="nav-link" href="/subjectlist">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Subjects</span></a>
         </li>
 
+        <!-- Nav Item - User Child -->
+        <li class="nav-item">
+            <a class="nav-link" href="/child/onlyuserchild">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Your Child</span></a>
+        </li>
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 

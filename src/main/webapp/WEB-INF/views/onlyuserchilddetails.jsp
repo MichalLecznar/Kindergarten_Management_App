@@ -8,9 +8,9 @@
 <p><b>Imię: </b><c:out value="${child.firstName}" default="not provided" /></p>
 <p><b>Nazwisko: </b><c:out value="${child.lastName}" default="not provided" /></p>
 <p><b>Wiek: </b><c:out value="${child.age}" default="not provided" /></p>
-<p><b>Rodzic: </b><c:out value="${parent.name}" default="not provided" /></p>
-<p><b>Email: </b><c:out value="${parent.email}" default="not provided" /></p>
-<a class="nav-link" href="/list">Back to list</a>
+<%--<p><b>Rodzic: </b><c:out value="${parent.name}" default="not provided" /></p>--%>
+<%--<p><b>Email: </b><c:out value="${parent.email}" default="not provided" /></p>--%>
+<a class="nav-link" href="/list">Go to children list</a>
 <a class="nav-link" href="/child/assigntosubject/${child.id}">Assign to subject</a>
 <a class="nav-link" href="/child/topdf/${child.id}">To ---> PDF</a>
 <a class="nav-link" href="/child/usersubjects/${child.id}">Classes attended by you</a>

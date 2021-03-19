@@ -40,7 +40,7 @@
 <%--                         items="${subjects}" itemValue="id" itemLabel="name" />--%>
             <select name="subId">
                 <c:forEach items="${subjects}" var="subject">
-                    <option value="${subject.id}" name="subId" id="subId">${subject.id}</option>
+                    <option value="${subject.id}" name="subId" id="subId">${subject.name}</option>
                 </c:forEach>
             </select>
 

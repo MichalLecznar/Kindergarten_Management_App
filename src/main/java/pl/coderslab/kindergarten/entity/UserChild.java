@@ -19,7 +19,7 @@ public class UserChild {
     private int age;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "userChild")
     private User user;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userChild")
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, mappedBy = "userChild")
     private List<Subject> subjects;
 
     public UserChild() {
@@ -72,7 +72,6 @@ public class UserChild {
     public void setUser(User user) {
         this.user = user;
     }
-
 
 
     @Override

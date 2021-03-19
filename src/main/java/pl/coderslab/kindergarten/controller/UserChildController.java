@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.kindergarten.entity.Subject;
 import pl.coderslab.kindergarten.entity.User;
 import pl.coderslab.kindergarten.entity.UserChild;
+import pl.coderslab.kindergarten.repository.SubjectDao;
 import pl.coderslab.kindergarten.repository.SubjectRepository;
 import pl.coderslab.kindergarten.repository.UserChildRepository;
 import pl.coderslab.kindergarten.repository.UserRepository;
@@ -24,11 +25,13 @@ public class UserChildController {
     private UserChildRepository userChildRepository;
     private UserRepository userRepository;
     private SubjectRepository subjectRepository;
+    private SubjectDao subjectDao;
 
-    public UserChildController(UserChildRepository userChildRepository, UserRepository userRepository, SubjectRepository subjectRepository) {
+    public UserChildController(SubjectDao subjectDao, UserChildRepository userChildRepository, UserRepository userRepository, SubjectRepository subjectRepository) {
         this.userChildRepository = userChildRepository;
         this.userRepository = userRepository;
         this.subjectRepository = subjectRepository;
+        this.subjectDao = subjectDao;
     }
 
     @GetMapping("/details/{id}")
@@ -86,14 +89,38 @@ public class UserChildController {
         int subId1 = Integer.parseInt(subId);
         Subject subject = this.subjectRepository.findById(subId1);
         UserChild userChild = this.userChildRepository.findById(id);
+//        this.userChildRepository.save(userChild);
+//        userChild.getSubjects().add(subject);
         subject.setUserChild(userChild);
         this.subjectRepository.save(subject);
+//        subject.setUserChild(userChild);
 //        this.userChildRepository.save(userChild);
         return "redirect:/list";
     }
+
+    @GetMapping("/usersubjects/{id}")
+    public String test2(@PathVariable int id, Model m){
+        UserChild userChild = this.userChildRepository.findById(id);
+        String name = userChild.getFirstName();
+        String surname = userChild.getLastName();
+        List<Subject> subjects = userChild.getSubjects();
+        m.addAttribute("subjects", subjects);
+        m.addAttribute("child", name + " " + surname);
+        return "subjectsbyuserchildid";
+    }
+
+    @GetMapping("/onlyuserchild")
+    public String onlyUserChild(HttpSession session, Model m){
+        int id = (Integer)session.getAttribute("id");
+        User user = this.userRepository.readById(id);
+        m.addAttribute("child", this.userChildRepository.readByUserId(user.getId()));
+        return "onlyuserchilddetails";
+    }
+
 
     @ModelAttribute("subjects")
     public List<Subject> subjects(){
         return this.subjectRepository.findAll();
     }
+
 }

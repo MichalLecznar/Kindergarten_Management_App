@@ -1,6 +1,7 @@
 package pl.coderslab.kindergarten.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Subject {
@@ -31,11 +32,28 @@ public class Subject {
         this.name = name;
     }
 
+//    public List<UserChild> getUserChild() {
+//        return userChild;
+//    }
+//
+//    public void setUserChild(List<UserChild> userChild) {
+//        this.userChild = userChild;
+//    }
+
     public UserChild getUserChild() {
         return userChild;
     }
 
     public void setUserChild(UserChild userChild) {
         this.userChild = userChild;
+    }
+
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", userChild=" + userChild +
+                '}';
     }
 }
