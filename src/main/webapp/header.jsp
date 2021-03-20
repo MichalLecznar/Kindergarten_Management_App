@@ -154,6 +154,13 @@
                 <i class="fas fa-fw fa-table"></i>
                 <span>Your Child</span></a>
         </li>
+
+        <!-- Nav Item - Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="/listofmeals">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Menu</span></a>
+        </li>
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
